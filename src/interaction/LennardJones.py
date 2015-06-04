@@ -37,7 +37,7 @@ from _espressopp import interaction_LennardJones, \
                       interaction_VerletListHadressLennardJones, \
                       interaction_VerletListHadressLennardJones2, \
                       interaction_VerletListGMAdressLennardJones, \
-                      interaction_VerletListGMHAdressLennardJones, \
+                      interaction_VerletListGMHadressLennardJones, \
                       interaction_CellListLennardJones, \
                       interaction_FixedPairListLennardJones
 
@@ -232,6 +232,20 @@ if pmi.isController:
             pmicall = ['setPotentialAT', 'setPotentialCG']
             )
 
+    class VerletListGMAdressLennardJones(Interaction):
+        __metaclass__ = pmi.Proxy
+        pmiproxydefs = dict(
+            cls =  'espressopp.interaction.VerletListGMAdressLennardJonesLocal',
+            pmicall = ['setPotentialAT', 'setPotentialCG']
+            )
+            
+    class VerletListGMHadressLennardJones(Interaction):
+        __metaclass__ = pmi.Proxy
+        pmiproxydefs = dict(
+            cls =  'espressopp.interaction.VerletListGMHadressLennardJonesLocal',
+            pmicall = ['setPotentialAT', 'setPotentialCG']
+            )
+            
     class CellListLennardJones(Interaction):
         __metaclass__ = pmi.Proxy
         pmiproxydefs = dict(
