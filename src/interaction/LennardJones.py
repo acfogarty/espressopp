@@ -36,6 +36,8 @@ from _espressopp import interaction_LennardJones, \
                       interaction_VerletListAdressLennardJones2, \
                       interaction_VerletListHadressLennardJones, \
                       interaction_VerletListHadressLennardJones2, \
+                      interaction_VerletListGMAdressLennardJones, \
+                      interaction_VerletListGMHAdressLennardJones, \
                       interaction_CellListLennardJones, \
                       interaction_FixedPairListLennardJones
 
@@ -126,6 +128,34 @@ class VerletListHadressLennardJones2Local(InteractionLocal, interaction_VerletLi
         if not (pmi._PMIComm and pmi._PMIComm.isActive()) or pmi._MPIcomm.rank in pmi._PMIComm.getMPIcpugroup():
             self.cxxclass.setPotentialCG(self, type1, type2, potential)
 
+class VerletListGMAdressLennardJonesLocal(InteractionLocal, interaction_VerletListGMAdressLennardJones):
+    'The (local) Lennard Jones interaction using Verlet lists.'
+    def __init__(self, vl, fixedtupleList):
+        if not (pmi._PMIComm and pmi._PMIComm.isActive()) or pmi._MPIcomm.rank in pmi._PMIComm.getMPIcpugroup():
+            cxxinit(self, interaction_VerletListGMAdressLennardJones, vl, fixedtupleList)
+
+    def setPotentialAT(self, type1, type2, potential):
+        if not (pmi._PMIComm and pmi._PMIComm.isActive()) or pmi._MPIcomm.rank in pmi._PMIComm.getMPIcpugroup():
+            self.cxxclass.setPotentialAT(self, type1, type2, potential)
+
+    def setPotentialCG(self, type1, type2, potential):
+        if not (pmi._PMIComm and pmi._PMIComm.isActive()) or pmi._MPIcomm.rank in pmi._PMIComm.getMPIcpugroup():
+            self.cxxclass.setPotentialCG(self, type1, type2, potential)
+            
+class VerletListGMHadressLennardJonesLocal(InteractionLocal, interaction_VerletListGMHadressLennardJones):
+    'The (local) Lennard Jones interaction using Verlet lists.'
+    def __init__(self, vl, fixedtupleList):
+        if not (pmi._PMIComm and pmi._PMIComm.isActive()) or pmi._MPIcomm.rank in pmi._PMIComm.getMPIcpugroup():
+            cxxinit(self, interaction_VerletListGMHadressLennardJones, vl, fixedtupleList)
+
+    def setPotentialAT(self, type1, type2, potential):
+        if not (pmi._PMIComm and pmi._PMIComm.isActive()) or pmi._MPIcomm.rank in pmi._PMIComm.getMPIcpugroup():
+            self.cxxclass.setPotentialAT(self, type1, type2, potential)
+
+    def setPotentialCG(self, type1, type2, potential):
+        if not (pmi._PMIComm and pmi._PMIComm.isActive()) or pmi._MPIcomm.rank in pmi._PMIComm.getMPIcpugroup():
+            self.cxxclass.setPotentialCG(self, type1, type2, potential)
+            
 class CellListLennardJonesLocal(InteractionLocal, interaction_CellListLennardJones):
     'The (local) Lennard Jones interaction using cell lists.'
     def __init__(self, stor):
